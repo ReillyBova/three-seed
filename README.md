@@ -1,73 +1,72 @@
-# Three Seed
+# COS 426 Final Project Seed
 
-Three.js starter project boilerplate bundled with Webpack.
+This project will help you get started on your ThreeJS project and provide a strong foundation for extension. It sets up a simple scene, camera, and renderer in a modern JavaScript environment.
 
-This project will help you get started on your next three.js project and provide a foundation for extension. It sets up a simple scene, camera and renderer in a modern Javascript environment.
+[Online Demo](https://reillybova.github.io/three-seed/)
 
-The [advanced branch](https://github.com/edwinwebb/three-seed/tree/advanced) maintains a more complex environment including controls, post-processing, redux stores, react, tweeing, async/await and more.
+## Installation
+This project uses the GitHub's NodeJS Package Manager (npm) to manage project dependencies. All npm settings, as well as your project dependencies and their versionings, are defined in the file `package.json`.
 
-[Online Demo](http://edwinwebb.github.io/three-seed/)
+The NodeJS Package Manager, which is the world's largest software registry and supports over one million open source JavaScript packages and libraries, runs in a NodeJS runtime. The NodeJS runtime is essentially a port of Google Chrome's JavaScript V8 engine that will run in your terminal.
 
-## Install
-Before you begin, make sure you are comfortable with terminal commands and have [Node and NPM installed](https://www.npmjs.com/get-npm).
+Before you begin, you will need to install [NodeJS and npm](https://www.npmjs.com/get-npm). Then, open a terminal instance and set your working directory to the root of the project and run `npm install`.
 
-### Install via Download
-First download the [zip of the project](https://github.com/edwinwebb/three-seed/archive/master.zip) and extract it. Then in terminal at that folder type `npm install` to set things up. To get going run: `npm start`.
+## Setting Up Your Project
+Before you start your project, look inside `package.json`. Take a note of the following fields, and adjust them where appropriate:
 
-### Install with Git
-In terminal clone the project into a directory of your choice then delete the git folder to start fresh.
+* `name`: This is your project name as it would appear on the npm registry (if published). You should replace this with your own project name, but make sure to preserve the all lowercase and hyphenated format.
 
-```bash
-git clone --depth=1 https://github.com/edwinwebb/three-seed.git my-project
-cd my-project
-rm -rf .git
-npm install
-```
+* `repository`: This should hold the name of your repository for this project. It should match name of your GitHub repository as it appears in the URL. For instance, "https://github.com/ReillyBova/three-seed" would become "three-seed".
 
-## Running the development server
-To see the changes you make to the starter project go to the project folder in terminal and type...
+* `version`: This field is used to version your project. The standard format for these is "MAJOR.MINOR.PATCH". You can update this as needed (for instance, setting it to "1.0.0" when you are finished with the project), or you can choose to ignore it.
 
-```bash
-npm start
-```
+* `title`: This field contains the "pretty" name of your project. When you run your project in the browser, this title will be injected into the site's HTML header. Most browsers will use this to label the browser tab.
 
-This command will bundle the project code and start a development server at [http://localhost:8080/](http://localhost:8080/). Visit this in your web browser; every time you make changes to the code the page will refresh. Congratulations, you are good to go!
+* `description`: A really quick description of your project.
+
+* `keywords`: A list of keywords for you project. Feel free to modify as needed, note that the last keyword should **not** be followed by a comma, since `package.json` must adhere to JSON format.
+
+* `scripts`: This field contains several npm scripts that you will find useful. The first three commands (`start`, `prebuild`, and `build`) are used to build the development webserver, as well as the production bundle, for your project. `format` is used to "prettify" your JavaScript into a standardized format, as specified in `.prettierrc`. Finally, `deploy` is used to publish your project to GitHub Pages as a live demo. You can run any of these commands from the command line using `npm run <script-name>`.
+
+The dependencies below these fields tell npm what libraries (and more specifically, which versions of these libraries) to download when you run `npm install`. If there are further packages you would like to add to your project, you can install them by running `npm install <package-name>`.
+
+## Launching a Local Webserver
+Now that your development environment is ready to go, you can spin up a local development webserver using `npm start`. This command will bundle the project code and start a development server at [http://localhost:8080/](http://localhost:8080/). Visit this in your web browser; every time you make changes to the code, *the page will automatically refresh.* If you did everything correctly, you should see something that looks like [this](https://reillybova.github.io/three-seed/) in your browser. Congratulations --- now you are ready to work!
 
 ## Editing the code
-The first file you should open is `./objects/Scene.js`. In it you will find the three objects comprising the world represented in your browser. The flower, the island, and the lights illuminating them are each represented as a javascript file in the `./object/s` folder. Open these, edit them and see your changes in the browser. If something goes wrong a message will displayed in the debug console of the browser.
+The first file you should open is `./src/app.js`. This includes the setup for your ThreeJS scene, as well important global-level operations like the render loop. At the top of the file, you will see modular imports for objects from the ThreeJS library dependency, as well as from the local project directory.
+
+Next, navigate to `.src/components/scenes/SeedScene.js`. This file contains the definition for the class `SeedScene`, and the sets this class as the default export. The companion file `.src/components/scenes/index.js` then takes this default export and makes it visible as `SeedScene` to any files importing from the `scenes` folder. Note that if you want to add additional folders to the `.src/components` subdirectory, you will probably want to add `import` aliases (shortcuts) for these new folders in `webpack.config.js`.
+
+Returning our focus to `SeedScene.js`, first take a look at the constructor. The call `super()` invokes the parent constructor for the class, which is `Scene()` here. Then we add an instance variable called `state`, and populate it with some default settings. One of these initialization, `new Dat.GUI()`, will create a simple user interface that should already be familiar to you. You can [learn more about dat.GUI here](https://workshop.chromeexperiments.com/examples/gui/#1--Basic-Usage), or you can uninstall it from the project via `npm uninstall dat.gui`.
+
+The next primary line after `this.state = ...` is not creating a new instance variable, but is rather modifying the `background` instance variable that was initialized in the `Scene` constructor (invoked by `super()`). Setting this property will changes the current color of the scene's background. Try changing this property to `0xff0000`, and see what happens to your pretty scene in the browser!
+
+After (re)setting the background to a nice sky blue, we next initialize and insert a few objects into the scene. Finally, at the end of the constructor, we tell the dat.GUI user interface to add a slider for the "rotationSpeed" property of `this.state`. The dat.GUI instance will automatically update `this.state.rotationSpeed` to whatever the user sets it to via the interface.
+
+Real quickly, another interesting function in the `SeedScene` class is `update()`. If you  return to `app.js`, you will see that we invoke this function via `scene.update()` in the render loop. Be careful to understand what we are doing within `update()` and how this affects the dynamic behavior on the screen.
+
+Once you understand the `SeedScene` class, the next place to look is `./src/components/objects/Flower/Flower.js`. Overall, this `Flower` class is fairly similar to `SeedScene`, but watch out for a few key differences: first, `Flower` extends `Group`, not `Scene`; second, the `Flower` constructor takes an argument, which is used to reference the `gui` property of the parent (`SeedScene` here). Finally, for a more advanced animation example, check out the `spin()` function to see how we time the flower's jump using TweenJS.
+
+Note that if you want to add your own object folder withing the `objects` directory, you will need to edit `objects/index.js`.
 
 ## Importing local files
-Local files, such as images and 3D models, are imported into the application as URLs then loaded asynchronously with three.js. Most common files that three.js uses are supported. Shader files are loaded as raw text. For more information about this system see the [webpack site](https://webpack.js.org/).
+Local files, such as images and 3D models, are imported into the application as URLs then loaded asynchronously with ThreeJS. Most common files that ThreeJS uses are supported out of the box. Shader files are loaded as raw text. For more information about this system, as well as for instruction on how to add additional loaders, see the [webpack site](https://webpack.js.org/).
 
 ## Importing modules from the web
-If you want to add additional functionality to your project, you can search and install them from the [NPM repository](https://www.npmjs.com/). Some modules you might want to consider are...
-* [three-orbit-controls](https://www.npmjs.com/package/three-orbit-controls)
-* [popmotion](https://www.npmjs.com/package/popmotion)
-* [Cannon.js Physics](https://www.npmjs.com/package/cannon).
-
-Additions like these are best managed in the projects entry file: `./src/entry.js`. In it are the Scene, Camera, Renderer, the window event listeners and the animation loop.
-
-## Using the Three.js Examples
-When using this project you might bump into a few issues around using 
-the examples from three.js docs. Most of the common issues have been 
-solved with including NPM packages. However, for more complex examples 
-with custom script includes you might find yourself having to refactor 
-them. See [Issue 15](https://github.com/edwinwebb/three-seed/issues/15) 
-for an example.
-
-## About the models
-Both models were exported from the [free 3D software Blender](https://www.blender.org/) using the [three.js exporter](https://github.com/timoxley/threejs/tree/master/utils/exporters/blender). They were downloaded from the Google Poly project. 
+As mentioned above, if you want to add additional functionality to your project, you can search for packages and install them from the [npm repository](https://www.npmjs.com/).
 
 ## Building the project for the web
-Once you are happy with your project you'll be sure to want to show it off. Running `npm run build` in terminal will bundle your project into the folder `./build/`. You can upload this directory to a web server. For more complex results read [this guide](https://webpack.js.org/guides/production/).
+Once you are happy with your project, try building a production bundle using `npm run build`. This will place an optimized and minified executable version of your project in the `./build/` directory. Test out this production build by setting `./build/` as your working directory and starting out a python server.
 
-## Advanced Usage
-This project has a branch with a host of additional features for the advanced user. It contains shaders, controls, tweens, and react with redux. See the [advanced branch](https://github.com/edwinwebb/three-seed/tree/advanced).
+Once you have a working production build and are ready for the site to go live, you can deploy your project straight to GitHub Pages via `npm run deploy`. Note that this requires that (1) your project is part of a repository, and (2) you have correctly set up your project's `package.json` file.
 
 ## CC Attributes
-Floating island : https://poly.google.com/view/eEz9hdknXOi
+Both models were downloaded from the Google Poly project:
 
-Flower: https://poly.google.com/view/eydI4__jXpi
+* [Floating island](https://poly.google.com/view/eEz9hdknXOi}
+
+* [Flower](https://poly.google.com/view/eydI4__jXpi)
 
 ## License
 [MIT](https://github.com/edwinwebb/three-seed/blob/master/LICENSE)
