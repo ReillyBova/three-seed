@@ -64,7 +64,7 @@ Once you have a working production build and are ready for the site to go live, 
 ## CC Attributes
 Both models were downloaded from the Google Poly project:
 
-* [Floating island](https://poly.google.com/view/eEz9hdknXOi}
+* [Floating island](https://poly.google.com/view/eEz9hdknXOi)
 
 * [Flower](https://poly.google.com/view/eydI4__jXpi)
 
