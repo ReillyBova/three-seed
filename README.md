@@ -33,7 +33,7 @@ The dependencies below these fields tell npm what libraries (and more specifical
 ## Launching a Local Webserver
 Now that your development environment is ready to go, you can spin up a local development webserver using `npm start`. This command will bundle the project code and start a development server at [http://localhost:8080/](http://localhost:8080/). Visit this in your web browser; every time you make changes to the code, *the page will automatically refresh.* If you did everything correctly, you should see something that looks like [this](https://reillybova.github.io/three-seed/) in your browser. Congratulations --- now you are ready to work!
 
-## Editing the code
+## Editing the Code
 The first file you should open is `./src/app.js`. This includes the setup for your ThreeJS scene, as well important global-level operations like the render loop. At the top of the file, you will see modular imports for objects from the ThreeJS library dependency, as well as from the local project directory.
 
 Next, navigate to `.src/components/scenes/SeedScene.js`. This file contains the definition for the class `SeedScene`, and the sets this class as the default export. The companion file `.src/components/scenes/index.js` then takes this default export and makes it visible as `SeedScene` to any files importing from the `scenes` folder. Note that if you want to add additional folders to the `.src/components` subdirectory, you will probably want to add `import` aliases (shortcuts) for these new folders in `webpack.config.js`.
@@ -50,13 +50,13 @@ Once you understand the `SeedScene` class, the next place to look is `./src/comp
 
 Note that if you want to add your own object folder withing the `objects` directory, you will need to edit `objects/index.js`.
 
-## Importing local files
+## Importing Local Files
 Local files, such as images and 3D models, are imported into the application as URLs then loaded asynchronously with ThreeJS. Most common files that ThreeJS uses are supported out of the box. Shader files are loaded as raw text. For more information about this system, as well as for instruction on how to add additional loaders, see the [webpack site](https://webpack.js.org/).
 
-## Importing modules from the web
+## Importing Modules from the Web
 As mentioned above, if you want to add additional functionality to your project, you can search for packages and install them from the [npm repository](https://www.npmjs.com/).
 
-## Building the project for the web
+## Building the Project for the Web
 Once you are happy with your project, try building a production bundle using `npm run build`. This will place an optimized and minified executable version of your project in the `./build/` directory. Test out this production build by setting `./build/` as your working directory and starting out a python server.
 
 Once you have a working production build and are ready for the site to go live, you can deploy your project straight to GitHub Pages via `npm run deploy`. Note that this requires that (1) your project is part of a repository, and (2) you have correctly set up your project's `package.json` file.
@@ -69,4 +69,4 @@ Both models were downloaded from the Google Poly project:
 * [Flower](https://poly.google.com/view/eydI4__jXpi)
 
 ## License
-[MIT](https://github.com/edwinwebb/three-seed/blob/master/LICENSE)
+[MIT](./LICENSE)
