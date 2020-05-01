@@ -12,6 +12,9 @@ module.exports = {
     },
     target: 'web',
     devtool: 'source-map',
+    stats: {
+        warnings: false
+    },
     module: {
         rules: [
             {
