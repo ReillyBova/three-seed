@@ -12,7 +12,7 @@ class Flower extends Group {
         this.state = {
             gui: parent.state.gui,
             bob: true,
-            spin: this.spin.bind(this),
+            spin: (() => this.spin()), // or this.spin.bind(this)
             twirl: 0,
         };
 
